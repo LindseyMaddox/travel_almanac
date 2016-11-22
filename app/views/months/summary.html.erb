@@ -69,6 +69,8 @@
                           <%= check_box_tag 'ids[]', month.id %> <%= month.name %>
                         </li>
                       <% end %>
+                      <%= check_box_tag(:check_all) %>
+                      <%= label_tag(:check_all, "Check all") %>
                     </br>
                     <%= submit_tag 'Filter', class: 'btn btn-primary', :name => nil %>
                   <% end %>

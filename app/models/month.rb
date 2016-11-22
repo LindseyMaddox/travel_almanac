@@ -3,7 +3,14 @@ class Month < ActiveRecord::Base
 	has_many :locations, through: :travel_calendars
 
 	scope :best, -> { all.group_by { |m| m.locations.count }.max.last }
-	scope :month_filter, ->(name) {where('months.name = ?', name) if name.present?}
+	
+	scope :multi_month_filter, -> (ids) {
+		if ids.present?
+			where('months.id IN (?)', ids) 
+		else
+			all
+		end
+	}
 	scope :filter, ->(region) {joins(:locations).where('locations.reg = ?', region) if region.present?}
 	
 	scope :locations_for_every_month, -> { select("months.id, months.name as m_name, locations.id, locations.name as l_name, locations.country as l_country, locations.region as l_region").joins(:locations).order("months.id asc, locations.name asc") }

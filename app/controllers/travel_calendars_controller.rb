@@ -16,58 +16,6 @@ class TravelCalendarsController < ApplicationController
 
   end
 
-  # GET /travel_calendars/1
-  # GET /travel_calendars/1.json
-  def show
-  end
-
-  # GET /travel_calendars/new
-  def new
-    @travel_calendar = TravelCalendar.new
-  end
-
-  # GET /travel_calendars/1/edit
-
-  # POST /travel_calendars
-  # POST /travel_calendars.json
-  def create
-    @travel_calendar = TravelCalendar.new(travel_calendar_params)
-
-    respond_to do |format|
-      if @travel_calendar.save
-        format.html { redirect_to @travel_calendar, notice: 'Travel calendar was successfully created.' }
-        format.json { render :show, status: :created, location: @travel_calendar }
-      else
-        format.html { render :new }
-        format.json { render json: @travel_calendar.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /travel_calendars/1
-  # PATCH/PUT /travel_calendars/1.json
-  def update
-    respond_to do |format|
-      if @travel_calendar.update(travel_calendar_params)
-        format.html { redirect_to @travel_calendar, notice: 'Travel calendar was successfully updated.' }
-        format.json { render :show, status: :ok, location: @travel_calendar }
-      else
-        format.html { render :edit }
-        format.json { render json: @travel_calendar.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /travel_calendars/1
-  # DELETE /travel_calendars/1.json
-  def destroy
-    @travel_calendar.destroy
-    respond_to do |format|
-      format.html { redirect_to travel_calendars_url, notice: 'Travel calendar was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_travel_calendar

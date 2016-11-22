@@ -1,25 +1,23 @@
 class MonthsController < ApplicationController
+	
+	before_filter :common_content, :only => [:index, :show]
+
 	def index
-		@month_locations_paginated = Month.locations_for_every_month.month_filter(params[:month_filter]).paginate(page: params[:page], :per_page => 20)
-		Month.select("months.id, months.name as m_name, locations.id, locations.name as l_name, locations.country as l_country, locations.region as l_region").joins(:locations).order("months.id asc, locations.name asc").paginate(page: params[:page], :per_page => 15)
+		@month_locations_paginated = Month.locations_for_every_month.multi_month_filter(params[:ids]).paginate(page: params[:page], :per_page => 20)
 
 		@names = Month.all.map(&:name)
 	end
 
 
 	def summary
-
-		#@months = Month.multi_month_filter.params[:ids]
-		if params[:ids].present?
-			@months = Month.where('id IN (?)', params[:ids]) 
-		else
-			@months = Month.all
-		end
-
-		@multi_months = Month.all
-		@names = Month.all.map(&:name)
+		@months = Month.multi_month_filter(params[:ids])
 
 		@unique_months = Month.unique_destination
 	end
 
+	private
+	
+	def common_content
+    	@multi_months = Month.all
+  	end
 end
