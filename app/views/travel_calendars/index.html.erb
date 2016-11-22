@@ -16,9 +16,9 @@
 				You can visit <% @current_month_locations.each do |location| %> 
 					<% x = @current_month_locations.length %>
 					<% if location == @current_month_locations.last %>
-						and <%= location.name %>
+						and <%= location.l_name %>
 					<% else %>
-						<%= location.name %>;
+						<%= location.l_name %>;
 					<% end %>
 				<% end %>
 					this month.</div>

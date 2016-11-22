@@ -52,8 +52,8 @@ class LocationsController < ApplicationController
 	        format.json { render json: @location.errors, status: :unprocessable_entity }
 	      end
 	    end
-	  end
-
+	  end 
+	  
 	  # PUT /locations/1
 	  # PUT /locations/1.json
 	  def update

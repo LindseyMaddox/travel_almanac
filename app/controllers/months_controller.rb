@@ -1,9 +1,8 @@
 class MonthsController < ApplicationController
 	def index
-		@months = Month.month_filter(params[:month_filter])
-		#to paginate, may want to create a hash of months with arrays of locations and loop through that, then paginate
+		@month_locations_paginated = Month.locations_for_every_month.month_filter(params[:month_filter]).paginate(page: params[:page], :per_page => 20)
+		Month.select("months.id, months.name as m_name, locations.id, locations.name as l_name, locations.country as l_country, locations.region as l_region").joins(:locations).order("months.id asc, locations.name asc").paginate(page: params[:page], :per_page => 15)
 
-		#maybe use later // @continents = Location.all.map(&:region).uniq
 		@names = Month.all.map(&:name)
 	end
 

@@ -6,6 +6,31 @@ class Month < ActiveRecord::Base
 	scope :month_filter, ->(name) {where('months.name = ?', name) if name.present?}
 	scope :filter, ->(region) {joins(:locations).where('locations.reg = ?', region) if region.present?}
 	
+	scope :locations_for_every_month, -> { select("months.id, months.name as m_name, locations.id, locations.name as l_name, locations.country as l_country, locations.region as l_region").joins(:locations).order("months.id asc, locations.name asc") }
+
+	#extra method may need later for refactoring other stuff
+	def self.get_month_location_hash
+		
+    month_locations = self.locations_for_every_month
+
+	@month_location_hash = {}
+	
+	month_list = Month.all.map {|m| [m.id, m.name] }.to_h
+
+		month_list.each_pair do |month_id, month_name|
+			temp_array = []
+			month_locations.each do |m|
+				if m[0] == month_id
+					temp_array.push([m[1], m[2]])
+				end
+			end
+			@month_location_hash[month_name] = temp_array
+			#reset temp array after storing has info
+			temp_array = []
+		end
+
+	@month_location_hash
+end
 
 	def self.max_count
 		max_count = []
@@ -25,7 +50,7 @@ class Month < ActiveRecord::Base
 
     	current_month_id = self.select(:id).where(name: current_month).first 
 
-    	current_month_locations = self.select("locations.name, locations.country").where(id: current_month_id).joins(:locations)
+    	current_month_locations = self.where(id: current_month_id).merge(self.locations_for_every_month)
   	
   		current_month_locations
   	end
