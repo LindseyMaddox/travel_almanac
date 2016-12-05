@@ -41,7 +41,7 @@
 			<div class="col-sm-12">
 				<% @best_months.each do |month| %>
 						<% x = @best_months.length %>
-						<% if x = 1 %>
+						<% if x == 1 %>
 							<strong><%= month %></strong> is the best time to travel,	
 						<% elsif month == @best_months.last %>
 							and <strong><%= month %></strong> are the best times to travel,

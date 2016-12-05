@@ -20,17 +20,15 @@
                   <div class="col-sm-3">Country</div>
                   <div class="col-sm-3">Region</div>
               </div>
-              <div class="row">
-                <% @month_locations_paginated.each do |month| %>
-                        <div class ="row">
-                          <div class = "col-sm-2"><%= month.m_name %></div>
-                         <div class = "col-sm-4"><%= month.l_name %></div>
-                         <div class = "col-sm-3"><%= month.l_country %></div>
-                         <div class = "col-sm-3"><%= month.l_region %></div>
-                      </div>
-                    <% end %>
-                  <%= will_paginate @month_locations_paginated %>   
-              </div>
+              <% @month_locations_paginated.each do |month| %>
+                  <div class ="row">
+                    <div class = "col-sm-2"><%= month.m_name %></div>
+                    <div class = "col-sm-4"><%= month.l_name %></div>
+                    <div class = "col-sm-3"><%= month.l_country %></div>
+                    <div class = "col-sm-3"><%= month.l_region %></div>
+                  </div>
+              <% end %>
+              <%= will_paginate @month_locations_paginated %>   
           </div> 
        <div class="col-sm-2">
             <div class = "row">

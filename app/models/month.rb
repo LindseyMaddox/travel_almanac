@@ -62,7 +62,6 @@ end
   		current_month_locations
   	end
 
-#REVIEW THIS
 	def self.unique_destination
 
 	    locations = Location.joins(:months)
@@ -82,7 +81,6 @@ end
 	        unique_group.push(location)
 	      end
 	    end
-#ok through here
 
 #so in unique group we have the list of locations for which the # of months you can visit
 #is equal to the minimum
@@ -98,7 +96,6 @@ end
 	      locations = unique_map(location)
 	    end
 
-	    #still need to refactor this to be more direct
 	    x = 0
 	    while x < (@temp_array.length-1) 
 	      @unique_locations_map[@temp_array[x]] = @temp_array[(x+1)] 
@@ -112,8 +109,7 @@ end
 	    @unique_locations_map.each do |key,value|
 			reverse_map[value] = key
 		end
-
-#probably should move this to another method	
+	
 		@unique_months = {}
 		reverse_map.each do |key, value|
 			x = 0
